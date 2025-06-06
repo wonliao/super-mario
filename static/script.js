@@ -20,10 +20,13 @@ function drawWheel(prizes) {
     }
 }
 
+let spinCount = 0;
+
 function spinWheel(index, prize) {
     const wheel = document.getElementById('wheel');
     const degPerPrize = 360 / prizes.length;
-    const rotation = 360 * 3 + 270 - index * degPerPrize - degPerPrize / 2;
+    spinCount += 3;
+    const rotation = 360 * spinCount + 270 - index * degPerPrize - degPerPrize / 2;
     wheel.style.transform = `rotate(${rotation}deg)`;
     const result = document.getElementById('result');
     const handler = () => {
