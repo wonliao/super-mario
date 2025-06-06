@@ -20,11 +20,17 @@ function drawWheel(prizes) {
     }
 }
 
-function spinWheel(index) {
+function spinWheel(index, prize) {
     const wheel = document.getElementById('wheel');
     const degPerPrize = 360 / prizes.length;
     const rotation = 360 * 3 + (index * degPerPrize) + degPerPrize / 2;
-    wheel.style.transform = `rotate(-${rotation}deg)`;
+    wheel.style.transform = `rotate(${rotation}deg)`;
+    const result = document.getElementById('result');
+    const handler = () => {
+        result.innerText = `恭喜獲得 ${prize} 元！`;
+        wheel.removeEventListener('transitionend', handler);
+    };
+    wheel.addEventListener('transitionend', handler);
 }
 
 window.onload = function() {
@@ -32,7 +38,6 @@ window.onload = function() {
     document.getElementById('spin').onclick = async function() {
         const res = await fetch('/spin');
         const data = await res.json();
-        spinWheel(data.index);
-        document.getElementById('result').innerText = `恭喜獲得 ${data.prize} 元！`;
+        spinWheel(data.index, data.prize);
     };
 };
