@@ -1,3 +1,4 @@
+import os
 import pygame
 from pygame.locals import *
 
@@ -7,8 +8,18 @@ GRAVITY = 0.5
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image = pygame.Surface((32, 32))
-        self.image.fill((255, 0, 0))
+        # 載入靜止、跑步與跳躍圖片
+        self.image_idle = pygame.image.load(
+            os.path.join("images", "mario.png")
+        ).convert_alpha()
+        self.image_run = pygame.image.load(
+            os.path.join("images", "mario_run.png")
+        ).convert_alpha()
+        self.image_jump = pygame.image.load(
+            os.path.join("images", "mario_jump.png")
+        ).convert_alpha()
+
+        self.image = self.image_idle
         self.rect = self.image.get_rect(topleft=(x, y))
         self.vel_y = 0
         self.on_ground = False
@@ -32,6 +43,14 @@ class Player(pygame.sprite.Sprite):
                 self.rect.bottom = platform.rect.top
                 self.vel_y = 0
                 self.on_ground = True
+
+        # 根據狀態切換圖片
+        if not self.on_ground:
+            self.image = self.image_jump
+        elif keys[K_LEFT] or keys[K_RIGHT]:
+            self.image = self.image_run
+        else:
+            self.image = self.image_idle
 
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, w, h):

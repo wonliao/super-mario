@@ -25,3 +25,11 @@ pygbag --build mario_game.py
 - 空白鍵：跳躍
 
 祝遊戲愉快！
+
+## 圖片素材
+請下載以下圖片並放入 `images` 目錄：
+1. [靜止] https://static.wikia.nocookie.net/nintendo/images/d/d8/Mario_NSMBW.png/revision/latest/scale-to-width-down/1586?cb=20240314053054&path-prefix=en (儲存為 `mario.png`)
+2. 跑步圖片 (`mario_run.png`)
+3. 跳躍圖片 (`mario_jump.png`)
+
+若沒有提供跑步或跳躍圖片，遊戲仍可執行，但角色將顯示為空白。
