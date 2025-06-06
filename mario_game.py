@@ -8,16 +8,27 @@ GRAVITY = 0.5
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        # 載入靜止、跑步與跳躍圖片
-        self.image_idle = pygame.image.load(
-            os.path.join("images", "mario.png")
-        ).convert_alpha()
-        self.image_run = pygame.image.load(
-            os.path.join("images", "mario_run.png")
-        ).convert_alpha()
-        self.image_jump = pygame.image.load(
-            os.path.join("images", "mario_jump.png")
-        ).convert_alpha()
+        # 載入靜止、跑步與跳躍圖片，若檔案不存在則以空白圖像取代
+        try:
+            self.image_idle = pygame.image.load(
+                os.path.join("images", "mario.png")
+            ).convert_alpha()
+        except (pygame.error, FileNotFoundError):
+            self.image_idle = pygame.Surface((40, 40), pygame.SRCALPHA)
+
+        try:
+            self.image_run = pygame.image.load(
+                os.path.join("images", "mario_run.png")
+            ).convert_alpha()
+        except (pygame.error, FileNotFoundError):
+            self.image_run = pygame.Surface(self.image_idle.get_size(), pygame.SRCALPHA)
+
+        try:
+            self.image_jump = pygame.image.load(
+                os.path.join("images", "mario_jump.png")
+            ).convert_alpha()
+        except (pygame.error, FileNotFoundError):
+            self.image_jump = pygame.Surface(self.image_idle.get_size(), pygame.SRCALPHA)
 
         self.image = self.image_idle
         self.rect = self.image.get_rect(topleft=(x, y))

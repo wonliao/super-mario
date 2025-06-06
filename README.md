@@ -33,3 +33,6 @@ pygbag --build mario_game.py
 3. 跳躍圖片 (`mario_jump.png`)
 
 若沒有提供跑步或跳躍圖片，遊戲仍可執行，但角色將顯示為空白。
+
+圖片載入採用 `pygame.image.load`，若檔案不存在或發生 `pygame.error`，程式會以
+`pygame.Surface` 產生空白圖像取代，確保遊戲可繼續運作。
