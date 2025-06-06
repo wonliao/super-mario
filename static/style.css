@@ -1,0 +1,23 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+#wheel-container {
+    position: relative;
+    margin: 20px auto;
+    width: 500px;
+    height: 500px;
+}
+
+#wheel {
+    transition: transform 4s ease-out;
+}
+
+#pointer {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+}
