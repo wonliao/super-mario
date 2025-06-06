@@ -10,7 +10,7 @@ SPIN_LOG_FILE = 'spin_log.txt'
 with open(SPIN_LOG_FILE, 'a', encoding='utf-8'):
     pass
 
-PRIZES = [100, 500, 1000, 5000, 10000, 20000, 50000, 100000, 200000, 1000000]
+PRIZES = [100, 500, 1000, 5000, 10000]
 
 @app.route('/')
 def index():
