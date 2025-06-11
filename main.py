@@ -32,7 +32,7 @@ class Player(Entity):
     def __init__(self, pos):
         super().__init__(BLUE, PLAYER_SIZE, pos)
         self.speed = 5
-        self.jump_power = -15
+        self.jump_power = -20
         self.on_ground = False
 
     def update(self, platforms):
