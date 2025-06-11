@@ -14,7 +14,7 @@ WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
-YELLOW = (255, 200, 0)
+YELLOW = (255, 255, 0)
 
 # 玩家、怪物、平台尺寸
 PLAYER_SIZE = (40, 50)
@@ -97,6 +97,20 @@ class Enemy(Entity):
         if abs(self.rect.x - self.start_x) > self.range:
             self.direction *= 1 if self.rect.x < self.start_x else -1
 
+class FlyingTurtle(Entity):
+    """上下飛行的烏龜"""
+    def __init__(self, pos, movement_range):
+        super().__init__(YELLOW, ENEMY_SIZE, pos)
+        self.range = movement_range
+        self.start_y = pos[1]
+        self.direction = 1
+        self.speed = 2
+
+    def update(self, platforms):
+        self.rect.y += self.speed * self.direction
+        if abs(self.rect.y - self.start_y) > self.range:
+            self.direction *= 1 if self.rect.y < self.start_y else -1
+
 class Platform(Entity):
     def __init__(self, pos, width):
         super().__init__(GREEN, (width, PLATFORM_HEIGHT), pos)
@@ -109,7 +123,8 @@ class Mushroom(Entity):
 player = Player((100, HEIGHT - 150))
 enemies = pygame.sprite.Group(
     Enemy((300, HEIGHT - 110), 100),
-    Enemy((600, HEIGHT - 110), 100)
+    Enemy((600, HEIGHT - 110), 100),
+    FlyingTurtle((500, HEIGHT - 250), 80)
 )
 platforms = [
     Platform((0, HEIGHT - PLATFORM_HEIGHT), WIDTH),  # 地面
@@ -117,6 +132,7 @@ platforms = [
     Platform((450, HEIGHT - 300), 150)
 ]
 platform_group = pygame.sprite.Group(platforms)
+
 mushrooms = pygame.sprite.Group(
     Mushroom((350, HEIGHT - PLATFORM_HEIGHT - MUSHROOM_SIZE[1]))
 )
